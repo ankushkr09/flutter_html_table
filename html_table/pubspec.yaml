@@ -1,0 +1,27 @@
+name: html_table
+description: "A new Flutter project."
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.5.4
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_widget_from_html: ^0.14.6
+  cupertino_icons: ^1.0.8
+  flutter_html_table: ^3.0.0-beta.2
+  url_launcher: ^6.1.14
+  youtube_player_iframe: ^5.2.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/sample.html

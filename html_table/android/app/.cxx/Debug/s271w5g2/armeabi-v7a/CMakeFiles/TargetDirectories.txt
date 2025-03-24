@@ -1,0 +1,2 @@
+/Users/user/flutter_html_table/html_table/android/app/.cxx/Debug/s271w5g2/armeabi-v7a/CMakeFiles/edit_cache.dir
+/Users/user/flutter_html_table/html_table/android/app/.cxx/Debug/s271w5g2/armeabi-v7a/CMakeFiles/rebuild_cache.dir

@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-// ignore: depend_on_referenced_packages
-import 'package:flutter_html/flutter_html.dart';
-import 'package:youtube_player_iframe/youtube_player_iframe.dart';
-import 'package:flutter_html_table/flutter_html_table.dart';
-import 'package:flutter/services.dart' show rootBundle;
-import 'package:url_launcher/url_launcher.dart';
+import 'package:webview_flutter/webview_flutter.dart';
+import 'dart:async';
 
 class HtmlViewer extends StatefulWidget {
   const HtmlViewer({super.key});
@@ -15,81 +11,58 @@ class HtmlViewer extends StatefulWidget {
 }
 
 class _HtmlViewerState extends State<HtmlViewer> {
-  String htmlContent = "";
-  // ignore: unused_field
-  YoutubePlayerController? _controller;
+  late final WebViewController _controller;
+  double _webViewHeight = 400;
 
   @override
   void initState() {
     super.initState();
-    loadHtmlFromFile();
+    _controller = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setBackgroundColor(const Color(0xFFFFFFFF))
+      ..setNavigationDelegate(
+        NavigationDelegate(
+          onPageFinished: (String url) {
+            _adjustWebViewHeight();
+          },
+        ),
+      )
+      ..addJavaScriptChannel(
+        "Resize",
+        onMessageReceived: (JavaScriptMessage message) {
+          double newHeight = double.tryParse(message.message) ?? 400;
+          setState(() {
+            _webViewHeight = newHeight;
+          });
+        },
+      )
+      ..loadFlutterAsset("assets/sample.html");
   }
 
-  Future<void> loadHtmlFromFile() async {
+  Future<void> _adjustWebViewHeight() async {
     try {
-      String fileHtmlContent =
-          await rootBundle.loadString('assets/sample.html');
-      setState(() {
-        htmlContent = fileHtmlContent;
-      });
+      await _controller.runJavaScript("""
+        Resize.postMessage(document.body.scrollHeight);
+      """);
     } catch (e) {
-      // print('Error loading HTML file: $e');
-    }
-  }
-
-  void _launchUrl(Uri url) async {
-    if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
-      throw 'Could not launch $url';
+      // print("Error adjusting height: $e");
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              Html(
-                data: htmlContent,
-                onLinkTap: (url, _, __) {
-                  if (url != null) {
-                    _launchUrl(Uri.parse(url));
-                  }
-                },
-                extensions: [
-                  const TableHtmlExtension(),
-                  TagExtension(
-                    tagsToExtend: {"iframe"},
-                    builder: (context) {
-                      final attributes = context.attributes;
-                      final videoUrl = attributes['src'] ?? '';
-
-                      if (videoUrl.contains("youtube.com") ||
-                          videoUrl.contains("youtu.be")) {
-                        String? videoId =
-                            YoutubePlayerController.convertUrlToId(videoUrl);
-
-                        if (videoId != null) {
-                          return YoutubePlayer(
-                            controller: YoutubePlayerController.fromVideoId(
-                              videoId: videoId,
-                              autoPlay: false,
-                              params: const YoutubePlayerParams(
-                                showFullscreenButton: true,
-                              ),
-                            ),
-                          );
-                        }
-                      }
-                      return const SizedBox.shrink();
-                    },
-                  ),
-                ],
-              ),
-            ],
-          ),
+      appBar: AppBar(title: const Text("Auto-Resizing WebView")),
+      body: SingleChildScrollView(  // To handle content overflow
+        child: Column(
+          children: [
+            const Text("Starting of the content"),
+            SizedBox(
+              height: _webViewHeight,  // Fixed height for WebView
+              child: WebViewWidget(controller: _controller),
+            ),
+            const Text("Ending of the content"),
+          ],
         ),
       ),
     );

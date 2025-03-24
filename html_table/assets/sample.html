@@ -1,115 +1,214 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <style>
-      table {
-        border-collapse: collapse;
-      }
-      th,
-      td {
-        border: 0.5px solid green;
-        padding: 8px;
-        text-align: left;
-      }
-      th {
-        background-color: #f2f2f2;
-      }
-    </style>
-  </head>
-  <body>
-    <h2>Employee Data</h2>
-    <table>
-      <tr>
-        <th>Name</th>
-        <th>Age</th>
-        <th>Department</th>
-        <th>Salary</th>
-      </tr>
-      <tr>
-        <td>Ankush Kumar</td>
-        <td>30</td>
-        <td>Engineering</td>
-        <td>$80,000</td>
-      </tr>
-      <tr>
-        <td>Jane Smith</td>
-        <td>28</td>
-        <td>Marketing</td>
-        <td>$72,000</td>
-      </tr>
-      <tr>
-        <td>John Doe</td>
-        <td>35</td>
-        <td>Engineering</td>
-        <td>$90,000</td>
-      </tr>
-      <tr>
-        <td>ABC</td>
-        <td>26</td>
-        <td>Sales</td>
-        <td>$60,000</td>
-      </tr>
-      <tr>
-        <td>Rishav</td>
-        <td>31</td>
-        <td>HR</td>
-        <td>$75,000</td>
-      </tr>
-      <tr>
-        <td>Zaid</td>
-        <td>29</td>
-        <td>Finance</td>
-        <td>$85,000</td>
-      </tr>
-      <tr>
-        <td>Hello World</td>
-        <td>30</td>
-        <td>Engineering</td>
-        <td>$78,000</td>
-      </tr>
-      <tr>
-        <td>Michael Johnson</td>
-        <td>33</td>
-        <td>Legal</td>
-        <td>$95,000</td>
-      </tr>
-      <tr>
-        <td>Emily Davis</td>
-        <td>27</td>
-        <td>Customer Support</td>
-        <td>$55,000</td>
-      </tr>
-      <!-- <tr>
-        <td>Michael Johnson</td>
-        <td>33</td>
-        <td>Legal</td>
-        <td>$95,000</td>
-      </tr>
-      <tr>
-        <td>Emily Davis</td>
-        <td>27</td>
-        <td>Customer Support</td>
-        <td>$55,000</td>
-      </tr> -->
-    </table>
-    <ol>
-      <li>
-        The rise of artificial intelligence, automation, and digital
-        connectivity has transformed industries, making processes more efficient
-        and accessible.
-      </li>
-      <li>
-        Businesses rely on data analytics to make informed decisions, while
-        individuals benefit from smart devices that simplify daily tasks.
-      </li>
-    </ol>
-    <a href="https://www.youtube.com/"> Click Here To Visit YouTube </a>
-    <br />
-    <a href="https://www.geeksforgeeks.org/flutter-advantages-disadvantages-and-future-scopes/">Flutter Advantages & Disadvantages</a>
-    <div>
-      <iframe
-        src="https://www.youtube.com/embed/yHriTrnlGUQ?si=chAUU_TzbhKLyT2L"
-      ></iframe>
-    </div>
-  </body>
+<html lang="en">
+<script>
+  function sendHeightToFlutter() {
+    Resize.postMessage(document.body.scrollHeight);
+  }
+
+  window.onload = sendHeightToFlutter;
+  window.addEventListener("resize", sendHeightToFlutter);
+</script>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTML Content</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #000000;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      color: white;
+    }
+
+    th,
+    td {
+      border: 1px solid white;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #000000;
+      color: white;
+    }
+
+    iframe {
+      width: 100%;
+      height: 300px;
+      margin-top: 20px;
+    }
+
+    #chart_div {
+      width: 100%;
+      height: 400px;
+      margin-top: 20px;
+    }
+  </style>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+    google.charts.load('current', { 'packages': ['corechart'] });
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+      var data = google.visualization.arrayToDataTable([
+        ['Department', 'Salary'],
+        ['Engineering', 80000],
+        ['Marketing', 72000],
+        ['Sales', 60000],
+        ['HR', 75000],
+        ['Finance', 85000],
+        ['Legal', 95000]
+      ]);
+
+      var options = {
+        title: 'Department Salaries',
+        hAxis: { title: 'Department' },
+        vAxis: { title: 'Salary' },
+        chartArea: { width: '70%', height: '70%' }
+      };
+
+      var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+      chart.draw(data, options);
+    }
+  </script>
+</head>
+
+<body>
+  <h2>Employee Data</h2>
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Department</th>
+      <th>Salary</th>
+      <th>Location</th>
+      <th>Experience (Years)</th>
+      <th>Start Date</th>
+      <th>Manager</th>
+    </tr>
+    <tr>
+      <td>Ankush Kumar</td>
+      <td>30</td>
+      <td>Engineering</td>
+      <td>$80,000</td>
+      <td>New York</td>
+      <td>8</td>
+      <td>01/12/2015</td>
+      <td>Rajesh Sharma</td>
+    </tr>
+    <tr>
+      <td>Jane Smith</td>
+      <td>28</td>
+      <td>Marketing</td>
+      <td>$72,000</td>
+      <td>Los Angeles</td>
+      <td>6</td>
+      <td>15/03/2017</td>
+      <td>Lisa Turner</td>
+    </tr>
+    <tr>
+      <td>John Doe</td>
+      <td>35</td>
+      <td>Engineering</td>
+      <td>$90,000</td>
+      <td>Chicago</td>
+      <td>10</td>
+      <td>20/06/2013</td>
+      <td>Michael Lee</td>
+    </tr>
+    <tr>
+      <td>Emily Davis</td>
+      <td>27</td>
+      <td>Customer Support</td>
+      <td>$55,000</td>
+      <td>San Francisco</td>
+      <td>4</td>
+      <td>12/09/2019</td>
+      <td>Tom White</td>
+    </tr>
+    <tr>
+      <td>Rishab Kumar</td>
+      <td>30</td>
+      <td>Engineering</td>
+      <td>$80,000</td>
+      <td>New York</td>
+      <td>7</td>
+      <td>22/11/2016</td>
+      <td>Rajesh Sharma</td>
+    </tr>
+    <tr>
+      <td>Rahul</td>
+      <td>28</td>
+      <td>Marketing</td>
+      <td>$72,000</td>
+      <td>Los Angeles</td>
+      <td>5</td>
+      <td>03/04/2018</td>
+      <td>Lisa Turner</td>
+    </tr>
+    <tr>
+      <td>Zaid</td>
+      <td>35</td>
+      <td>Engineering</td>
+      <td>$90,000</td>
+      <td>Chicago</td>
+      <td>12</td>
+      <td>15/06/2010</td>
+      <td>Michael Lee</td>
+    </tr>
+    <tr>
+      <td>Anshu</td>
+      <td>27</td>
+      <td>Customer Support</td>
+      <td>$55,000</td>
+      <td>San Francisco</td>
+      <td>3</td>
+      <td>22/08/2020</td>
+      <td>Tom White</td>
+    </tr>
+    <tr>
+      <td>Aakash</td>
+      <td>27</td>
+      <td>Customer Support</td>
+      <td>$55,000</td>
+      <td>San Francisco</td>
+      <td>3</td>
+      <td>18/10/2020</td>
+      <td>Tom White</td>
+    </tr>
+    <tr>
+      <td>kjggyu</td>
+      <td>27</td>
+      <td>Customer Support</td>
+      <td>$55,000</td>
+      <td>San Francisco</td>
+      <td>2</td>
+      <td>01/11/2021</td>
+      <td>Tom White</td>
+    </tr>
+  </table>
+
+
+  <p style="color: white;">The rise of artificial intelligence, automation, and digital connectivity has transformed
+    industries, making processes more efficient and accessible.</p>
+
+  <a href="https://www.youtube.com/">Click Here To Visit YouTube</a>
+  <br>
+  <a href="https://www.geeksforgeeks.org/flutter-advantages-disadvantages-and-future-scopes/">Flutter Advantages &
+    Disadvantages</a>
+
+  <div>
+    <iframe src="https://www.youtube.com/embed/yHriTrnlGUQ?si=chAUU_TzbhKLyT2L" allowfullscreen></iframe>
+  </div>
+
+  <div id="chart_div"></div>
+</body>
+
 </html>

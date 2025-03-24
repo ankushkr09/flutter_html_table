@@ -1,0 +1,323 @@
+<!-- <!DOCTYPE html>
+<html>
+
+<head>
+  <style>
+    table {
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      border: 0.5px solid green;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>Employee Data</h2>
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Department</th>
+      <th>Salary</th>
+    </tr>
+    <tr>
+      <td>Ankush Kumar</td>
+      <td>30</td>
+      <td>Engineering</td>
+      <td>$80,000</td>
+    </tr>
+    <tr>
+      <td>Jane Smith</td>
+      <td>28</td>
+      <td>Marketing</td>
+      <td>$72,000</td>
+    </tr>
+    <tr>
+      <td>John Doe</td>
+      <td>35</td>
+      <td>Engineering</td>
+      <td>$90,000</td>
+    </tr>
+    <tr>
+      <td>ABC</td>
+      <td>26</td>
+      <td>Sales</td>
+      <td>$60,000</td>
+    </tr>
+    <tr>
+      <td>Rishav</td>
+      <td>31</td>
+      <td>HR</td>
+      <td>$75,000</td>
+    </tr>
+    <tr>
+      <td>Zaid</td>
+      <td>29</td>
+      <td>Finance</td>
+      <td>$85,000</td>
+    </tr>
+    <tr>
+      <td>Hello World</td>
+      <td>30</td>
+      <td>Engineering</td>
+      <td>$78,000</td>
+    </tr>
+    <tr>
+      <td>Michael Johnson</td>
+      <td>33</td>
+      <td>Legal</td>
+      <td>$95,000</td>
+    </tr>
+    <tr>
+      <td>Emily Davis</td>
+      <td>27</td>
+      <td>Customer Support</td>
+      <td>$55,000</td>
+    </tr>
+  </table>
+  <ol>
+    <li>
+      The rise of artificial intelligence, automation, and digital
+      connectivity has transformed industries, making processes more efficient
+      and accessible.
+    </li>
+    <li>
+      Businesses rely on data analytics to make informed decisions, while
+      individuals benefit from smart devices that simplify daily tasks.
+    </li>
+  </ol>
+  <a href="https://www.youtube.com/"> Click Here To Visit YouTube </a>
+  <br />
+  <a href="https://www.geeksforgeeks.org/flutter-advantages-disadvantages-and-future-scopes/">Flutter Advantages &
+    Disadvantages</a>
+  <div>
+    <iframe src="https://www.youtube.com/embed/yHriTrnlGUQ?si=chAUU_TzbhKLyT2L" />
+  </div>
+</body>
+</html> -->
+
+
+
+
+
+
+// import 'dart:convert';
+// import 'package:flutter/material.dart';
+// import 'package:flutter_html/flutter_html.dart';
+// import 'package:youtube_player_iframe/youtube_player_iframe.dart';
+// import 'package:flutter_html_table/flutter_html_table.dart';
+// import 'package:flutter/services.dart' show rootBundle;
+// import 'package:url_launcher/url_launcher.dart';
+// import 'package:webview_flutter/webview_flutter.dart';
+
+// class HtmlViewer extends StatefulWidget {
+//   const HtmlViewer({super.key});
+
+//   @override
+//   _HtmlViewerState createState() => _HtmlViewerState();
+// }
+
+// class _HtmlViewerState extends State<HtmlViewer> {
+//   String htmlContent = "";
+//   late WebViewController _webViewController;
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     loadHtmlFromFile();
+//     _webViewController = WebViewController()
+//       ..setJavaScriptMode(JavaScriptMode.unrestricted);
+//   }
+
+//   Future<void> loadHtmlFromFile() async {
+//     try {
+//       String fileHtmlContent =
+//           await rootBundle.loadString('assets/sample.html');
+//       setState(() {
+//         htmlContent = fileHtmlContent;
+//       });
+//     } catch (e) {
+//       print('Error loading HTML file: $e');
+//     }
+//   }
+
+//   void _launchUrl(Uri url) async {
+//     if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+//       throw 'Could not launch $url';
+//     }
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(title: const Text("HTML Viewer")),
+//       body: SingleChildScrollView(
+//         child: Column(
+//           children: [
+//             // Render HTML (table, links, iframe)
+//             Padding(
+//               padding: const EdgeInsets.all(8.0),
+//               child: Html(
+//                 data: htmlContent,
+//                 onLinkTap: (url, _, __) {
+//                   if (url != null) {
+//                     _launchUrl(Uri.parse(url));
+//                   }
+//                 },
+//                 extensions: [
+//                   const TableHtmlExtension(),
+//                   TagExtension(
+//                     tagsToExtend: {"iframe"},
+//                     builder: (context) {
+//                       final attributes = context.attributes;
+//                       final videoUrl = attributes['src'] ?? '';
+
+//                       if (videoUrl.contains("youtube.com") ||
+//                           videoUrl.contains("youtu.be")) {
+//                         String? videoId =
+//                             YoutubePlayerController.convertUrlToId(videoUrl);
+//                         if (videoId != null) {
+//                           return YoutubePlayer(
+//                             controller: YoutubePlayerController.fromVideoId(
+//                               videoId: videoId,
+//                               autoPlay: false,
+//                               params: const YoutubePlayerParams(
+//                                 showFullscreenButton: true,
+//                               ),
+//                             ),
+//                           );
+//                         }
+//                       }
+//                       return const SizedBox.shrink();
+//                     },
+//                   ),
+//                 ],
+//               ),
+//             ),
+//             const SizedBox(height: 20),
+
+//             // WebView to render the chart
+//             SizedBox(
+//               height: 400,
+//               child: WebViewWidget(controller: _webViewController),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+
+
+// import 'package:flutter/material.dart';
+// // ignore: depend_on_referenced_packages
+// import 'package:flutter_html/flutter_html.dart';
+// import 'package:youtube_player_iframe/youtube_player_iframe.dart';
+// import 'package:flutter_html_table/flutter_html_table.dart';
+// import 'package:flutter/services.dart' show rootBundle;
+// import 'package:url_launcher/url_launcher.dart';
+
+// class HtmlViewer extends StatefulWidget {
+//   const HtmlViewer({super.key});
+
+//   @override
+//   // ignore: library_private_types_in_public_api
+//   _HtmlViewerState createState() => _HtmlViewerState();
+// }
+
+// class _HtmlViewerState extends State<HtmlViewer> {
+//   String htmlContent = "";
+//   // YoutubePlayerController? _controller;
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     loadHtmlFromFile();
+//   }
+
+//   Future<void> loadHtmlFromFile() async {
+//     try {
+//       String fileHtmlContent =
+//           await rootBundle.loadString('assets/sample.html');
+//       setState(() {
+//         htmlContent = fileHtmlContent;
+//       });
+//     } catch (e) {
+//       // print('Error loading HTML file: $e');
+//     }
+//   }
+
+//   void _launchUrl(Uri url) async {
+//     if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+//       throw 'Could not launch $url';
+//     }
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(title: const Text("HTML Viewer")),
+//       body: SingleChildScrollView(
+//         scrollDirection: Axis.horizontal,
+//         child: SizedBox(
+//           width: MediaQuery.of(context).size.width,
+//           child: SingleChildScrollView(
+//             scrollDirection: Axis.vertical,
+//             child: Padding(
+//               padding: const EdgeInsets.all(8.0),
+//               child: IntrinsicWidth(
+//                 child: Html(
+//                   data: htmlContent,
+//                   onLinkTap: (url, _, __) {
+//                     if (url != null) {
+//                       _launchUrl(Uri.parse(url));
+//                     }
+//                   },
+//                   extensions: [
+//                     const TableHtmlExtension(),
+//                     TagExtension(
+//                       tagsToExtend: {"iframe"},
+//                       builder: (context) {
+//                         final attributes = context.attributes;
+//                         final videoUrl = attributes['src'] ?? '';
+
+//                         if (videoUrl.contains("youtube.com") ||
+//                             videoUrl.contains("youtu.be")) {
+//                           String? videoId =
+//                               YoutubePlayerController.convertUrlToId(videoUrl);
+
+//                           if (videoId != null) {
+//                             return YoutubePlayer(
+//                               controller: YoutubePlayerController.fromVideoId(
+//                                 videoId: videoId,
+//                                 autoPlay: false,
+//                                 params: const YoutubePlayerParams(
+//                                   showFullscreenButton: true,
+//                                 ),
+//                               ),
+//                             );
+//                           }
+//                         }
+//                         return const SizedBox.shrink();
+//                       },
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//             ),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }

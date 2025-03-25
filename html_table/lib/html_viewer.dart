@@ -53,12 +53,12 @@ class _HtmlViewerState extends State<HtmlViewer> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Auto-Resizing WebView")),
-      body: SingleChildScrollView(  // To handle content overflow
+      body: SingleChildScrollView(
         child: Column(
           children: [
             const Text("Starting of the content"),
             SizedBox(
-              height: _webViewHeight,  // Fixed height for WebView
+              height: _webViewHeight,
               child: WebViewWidget(controller: _controller),
             ),
             const Text("Ending of the content"),
